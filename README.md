@@ -1,4 +1,4 @@
-# 📊 Social Media Trend and Sentiment Analysis (POC)
+# 📊 Social Media Trend and Sentiment Analysis 
 
 ---
 
