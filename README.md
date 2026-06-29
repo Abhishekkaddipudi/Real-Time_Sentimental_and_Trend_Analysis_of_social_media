@@ -1,256 +1,165 @@
-# 📊 Social Media Trend and Sentiment Analysis 
+# Real-Time Social Media Trend and Sentiment Analysis
 
----
+A comprehensive system for analyzing social media trends and sentiment using Large Language Models (LLMs).
 
-## 1. Introduction
+## Features
 
-We live in a time where social media platforms like Instagram, X, YouTube, and Reddit are filled with user-generated content every second.
+- **Data Ingestion**: Fetch data from Reddit, Twitter, or generate synthetic data
+- **Text Preprocessing**: Clean and normalize social media text
+- **Sentiment Analysis**: Zero-shot classification using Google Gemini API
+- **Trend Analysis**: Detect emerging trends, calculate velocity, and track lifecycle
+- **Visualization**: Interactive dashboards with Plotly and Streamlit
+- **Database Storage**: PostgreSQL for structured storage of analysis results
 
-This content reflects:
+## Architecture
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ DATA INGESTION LAYER │
+│ ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐ │
+│ │ Reddit │ │ Twitter │ │ Data Generator │ │
+│ │ Fetcher │ │ Fetcher │ │ (Synthetic Data) │ │
+│ └──────────────┘ └──────────────┘ └──────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
+│
+▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PROCESSING & ANALYTICS LAYER │
+│ ┌──────────────┐ ┌─────────────────┐ ┌──────────────────────────────┐ │
+│ │ Text │ │ Sentiment │ │ Trend │ │
+│ │ Cleaner │──▶ Analyzer │──▶ Analyzer │ │
+│ │ │ │ (Gemini API) │ │ │ │
+│ └──────────────┘ └─────────────────┘ └──────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
+│
+▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ STORAGE & PRESENTATION LAYER │
+│ ┌──────────────────┐ ┌──────────────────────────────────────────────┐ │
+│ │ Database │ │ Dashboard │ │
+│ │ (PostgreSQL) │──▶ (Plotly / Streamlit / Power BI) │ │
+│ └──────────────────┘ └──────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-* What people think
-* What is trending
-* How users engage with each other
+text
 
-This project aims to analyze social media data to extract meaningful insights, focusing on:
+## Installation
 
-* **Trend Analysis**
-* **Sentiment Analysis**
+### Prerequisites
 
----
+- Python 3.10+
+- PostgreSQL (optional)
+- Google Gemini API Key
+- Reddit API Credentials (optional)
+- Twitter API Credentials (optional)
 
-## 2. Problem Statement
+### Steps
 
-Social media data is:
-
-* Highly dynamic
-* Unstructured
-* Continuously changing
-
-It is difficult to manually:
-
-* Identify trending topics
-* Understand public sentiment
-
-Therefore, we need a system that can:
-
-* Analyze trends over time
-* Understand user sentiment
-* Provide insights using engagement data
-
----
-
-## 3. Objective
-
-The main objectives of this project are:
-
-* Collect social media data using keywords
-* Perform sentiment analysis (Positive, Negative, Neutral)
-* Identify trends based on time and engagement
-* Visualize insights using charts and dashboards
-
----
-
-## 4. Scope of the Project
-
-### Current Scope (POC)
-
-* Manual data collection (limited dataset)
-* Basic trend analysis
-* Basic sentiment analysis
-* Visualization of insights
-
-### Future Scope
-
-* Real-time data collection using APIs
-* Advanced machine learning models
-* Scalable dashboard systems
-
----
-
-## 5. Data Collection
-
-Data was manually collected from:
-
-* Instagram
-* X
-* YouTube
-* Reddit
-
-### Keywords Used
-
-* Artificial Intelligence
-* ChatGPT
-* Cryptocurrency
-* Climate Change
-* Fitness
-* Digital Marketing
-
-A total of **100–200 records** were collected for this project.
-
----
-
-## 6. Dataset Structure
-
-| Column Name | Description                     |
-| ----------- | ------------------------------- |
-| PostID      | Unique identifier for each post |
-| Platform    | Source platform                 |
-| Keyword     | Topic of the post               |
-| Category    | Category of keyword             |
-| Post_Text   | Content of the post             |
-| Likes       | Number of likes                 |
-| Comments    | Number of comments              |
-| Timestamp   | Time of posting                 |
-| Sentiment   | Positive / Neutral / Negative   |
-
----
-
-## 7. Methodology
-
-### 7.1 Data Preprocessing
-
-* Removed duplicate entries
-* Standardized timestamps
-* Cleaned text data (removed noise and symbols)
-* Ensured consistency across dataset
-
----
-
-### 7.2 Sentiment Analysis
-
-Each post is classified into:
-
-* **Positive** → Favorable opinion
-* **Negative** → Unfavorable opinion
-* **Neutral** → Informational content
-
-This helps in understanding public opinion about different topics.
-
----
-
-### 7.3 Trend Analysis
-
-Trend analysis is performed using:
-
-* Number of posts over time
-* Engagement metrics (Likes and Comments)
-* Keyword frequency
-
-### Trend Score Formula
-
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/social-media-analysis.git
+cd social-media-analysis
 ```
-Trend Score = Likes + Comments
+Create and activate virtual environment:
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
+Install dependencies:
 
-### This helps identify:
-
-* Popular topics
-* Peak activity periods
-* Trend lifecycle (Growth → Peak → Decline)
-
----
-
-## 8. System Architecture
-
+```bash
+pip install -r requirements.txt
 ```
-Data Collection (Manual)
-        ↓
-Data Storage (Excel / CSV)
-        ↓
-Data Preprocessing
-        ↓
-Analysis Layer
-   ├── Sentiment Analysis
-   └── Trend Analysis
-        ↓
-Visualization Layer
-        ↓
-Dashboard / Reports
+Configure environment variables:
+
+```bash
+cp .env.example .env
+# Edit .env with your API keys
 ```
+Run the pipeline:
 
----
+```bash
+python scripts/run_pipeline.py --keyword "artificial intelligence" --source generated
+```
+Usage
+Command Line
+bash
+# Analyze generated data
+python scripts/run_pipeline.py --keyword "technology" --source generated --limit 100
 
-## 9. Visualization Plan
+# Analyze Reddit data
+python scripts/run_pipeline.py --keyword "python" --source reddit --limit 50
 
-The following visualizations are used:
+# Generate report
+python scripts/run_pipeline.py --keyword "AI" --report report.html
 
-* **Sentiment Distribution** → Pie Chart
-* **Trend Over Time** → Line Graph
-* **Keyword Popularity** → Bar Chart
-* **Platform Engagement Comparison** → Bar Chart
+# Skip sentiment analysis (faster)
+python scripts/run_pipeline.py --keyword "tech" --no-sentiment
+Jupyter Notebook
+bash
+jupyter notebook notebooks/analysis_demo.ipynb
+Streamlit Dashboard
+bash
+# Create a Streamlit app (requires additional code)
+streamlit run src/visualization/streamlit_app.py
+Project Structure
+text
+real-time-social-media-analysis/
+├── config/
+│   └── settings.py          # Configuration settings
+├── src/
+│   ├── data_ingestion/      # Data fetching modules
+│   │   ├── reddit_fetcher.py
+│   │   ├── twitter_fetcher.py
+│   │   └── data_generator.py
+│   ├── preprocessing/       # Text cleaning
+│   │   └── text_cleaner.py
+│   ├── analysis/            # Sentiment and trend analysis
+│   │   ├── sentiment_analyzer.py
+│   │   └── trend_analyzer.py
+│   ├── storage/             # Database operations
+│   │   └── database.py
+│   └── visualization/       # Dashboard creation
+│       └── dashboard.py
+├── scripts/
+│   ├── run_pipeline.py      # Main pipeline script
+│   └── generate_report.py   # Report generation
+├── notebooks/
+│   └── analysis_demo.ipynb  # Jupyter notebook demo
+├── tests/
+│   └── test_analyzer.py     # Unit tests
+├── requirements.txt
+├── .env
+└── README.md
+API Integration
+Google Gemini API
+The system uses Google's Gemini API for zero-shot sentiment classification:
 
-These visualizations help in understanding patterns clearly.
+python
+from src.analysis import SentimentAnalyzer
 
----
+analyzer = SentimentAnalyzer()
+result = analyzer.analyze_sentiment("I love this product!")
+# Returns: {'sentiment': 'positive', 'emotion': 'joy', ...}
+Reddit API (PRAW)
+python
+from src.data_ingestion import RedditFetcher
 
-## 10. Sample Data
+fetcher = RedditFetcher()
+posts = fetcher.fetch_posts_by_keyword("python", limit=50)
+Testing
+bash
+# Run all tests
+pytest tests/
 
-| PostID    | Platform  | Keyword                 | Likes | Comments | Sentiment |
-| --------- | --------- | ----------------------- | ----- | -------- | --------- |
-| X-AI-001  | X         | Artificial Intelligence | 120   | 15       | Positive  |
-| IG-AI-002 | Instagram | Artificial Intelligence | 230   | 40       | Positive  |
-| YT-AI-003 | YouTube   | Artificial Intelligence | 500   | 60       | Neutral   |
+# Run with coverage
+pytest --cov=src tests/
+Contributing
+Fork the repository
 
----
+Create a feature branch
 
-## 11. Results and Insights
+Commit your changes
 
-From the analysis:
+Push to the branch
 
-* Some keywords generate higher engagement
-* Social media trends follow a lifecycle pattern
-* Most posts are neutral or positive
-* Some topics show mixed sentiment
-
-### Key Observations
-
-* AI-related posts show high engagement and positive sentiment
-* Cryptocurrency shows mixed reactions
-* Instagram shows higher average engagement
-
----
-
-## 12. Conclusion
-
-This project demonstrates that social media data can be analyzed to extract meaningful insights.
-
-With a small dataset, we can:
-
-* Identify trending topics
-* Understand public sentiment
-* Visualize engagement patterns
-
-This approach can be extended to real-time systems in business and research.
-
----
-
-## 13. Future Enhancements
-
-* Integration with real-time APIs
-* Use of advanced NLP models
-* Automation of data pipelines
-* Interactive dashboards
-* Predictive trend analysis
-
----
-
-## 14. Tools and Technologies Used
-
-* Python
-* Pandas
-* Excel
-* Data Visualization (Matplotlib, Power BI)
-* NLP (Basic Sentiment Analysis)
-
----
-
-## 15. Summary
-
-This project provides a foundation for:
-
-* Social Media Analytics
-* Trend Detection
-* Sentiment Analysis
-
-It demonstrates the feasibility of building a scalable analytics system in the future.
+Create a Pull Request
