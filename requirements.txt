@@ -16,3 +16,4 @@ torch==2.1.0
 vaderSentiment==3.3.2
 scikit-learn==1.5.2
 wordcloud==1.9.3
+openpyxl>=3.1.2

@@ -3,6 +3,9 @@
 Main entry point for the Real-Time Social Media Trend and Sentiment Analysis System.
 """
 
+import warnings
+
+warnings.filterwarnings("ignore")
 import sys
 import os
 import json
