@@ -94,6 +94,11 @@ class TestSentimentAnalysis(unittest.TestCase):
         self.assertEqual(result["sentiment"], "neutral")
         self.assertEqual(result["confidence"], 0.0)
 
+    def test_validate_sentiment_aliases(self):
+        """Test localized sentiment aliases normalize correctly."""
+        self.assertEqual(self.analyzer._validate_sentiment("positivo"), "positive")
+        self.assertEqual(self.analyzer._validate_sentiment("negativo"), "negative")
+
 
 class TestTrendAnalysis(unittest.TestCase):
     """Test cases for TrendAnalysis module."""

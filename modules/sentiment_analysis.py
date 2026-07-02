@@ -483,8 +483,8 @@ class SentimentAnalysis:
 
     def _validate_sentiment(self, sentiment: str) -> str:
         """Validate sentiment category."""
-        sentiment = sentiment.lower()
-        if sentiment in ["positive", "negativo"]:
+        sentiment = str(sentiment).strip().lower()
+        if sentiment in ["positive", "positivo"]:
             return "positive"
         elif sentiment in ["negative", "negativo"]:
             return "negative"
