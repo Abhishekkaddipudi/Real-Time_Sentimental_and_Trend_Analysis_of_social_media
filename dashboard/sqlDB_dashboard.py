@@ -70,7 +70,7 @@ st.markdown(
 # Database
 # -------------------------------------------------------
 
-DATABASE = "social_media.db"
+DATABASE = "dashboard/social_media.db"
 
 
 @st.cache_data
