@@ -3,4 +3,4 @@ COPY . /dashboard
 WORKDIR /dashboard
 RUN pip install -r requirements.txt
 EXPOSE $PORT
-CMD streamlit run sqlDB_dashboard.py --server.fileWatcherType none
+CMD streamlit run dashboard/sqlDB_dashboard.py --server.fileWatcherType none
